@@ -40,8 +40,7 @@ const FileList = () => {
         try {
             const response = await fileService.downloadFile(FileName, code);
 
-            // Create a URL for the file and trigger the download
-            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const url =  window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', FileName); // Use the filename or set as needed
@@ -85,13 +84,13 @@ const FileList = () => {
                 <form onSubmit={(e) => { e.preventDefault(); handleDownload(downloadId); }}>
                     <div className="form-group">
                         <label htmlFor="code">Enter Download Code</label>
-                        <input type="text" className="form-control" name="code" value={code} onChange={(e) => setCode(e.target.value)} required />
+                        <input type="number" className="form-control" name="code" value={code} onChange={(e) => setCode(e.target.value)} required />
                     </div>
                     <button className="btn btn-primary btn-block" onClick={(e) => { handleDownload(e) }}>Download</button>
                 </form>
             )}
 
-            <button className='btn btn-primary btn-block' href="/profile">back to profile</button>
+            <a className='btn btn-primary btn-block' href="/profile">back to profile</a>
         </div>
     );
 };

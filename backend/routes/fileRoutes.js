@@ -87,10 +87,11 @@ router.delete('/:filename', auth, async (req, res) => {
 router.post('/download/:filename', async (req, res) => {
     try {
         console.log('req.query.filename',req.query.filename);
-        const file = await File.findOne({filename:req.query.filename});
+        const file = await File.findOne({filename:req.query.filename}); // object all file details
         console.log('file ',file);
         if (!file) return res.status(404).json({ msg: 'File not found' });
 
+        // file code send and check
         if (req.body.code !== file.code) {
             return res.status(401).json({ msg: 'Invalid code' });
         }

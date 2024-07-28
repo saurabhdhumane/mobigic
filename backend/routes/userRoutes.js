@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
         await user.save();
 
         const payload = { user: { id: user.id } };
-        jwt.sign(payload, 'your_jwt_secret', { expiresIn: '1h' }, (err, token) => {
+        jwt.sign(payload, 'projectJwt', { expiresIn: '1h' }, (err, token) => {
             if (err) throw err;
             res.json({ token });
         });

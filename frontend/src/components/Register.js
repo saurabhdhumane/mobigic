@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import authService from '../services/authService';
+import { useNavigate } from 'react-router-dom';
+
 
 const Register = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate()
 
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
             await authService.register(username, password);
-            props.history.push('/login');
+            alert('user Register Successfull')
+            navigate('/login')
+            // props.history.push('/login');
         } catch (error) {
             setMessage(error.response.data.msg);
         }
