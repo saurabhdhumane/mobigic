@@ -6,8 +6,8 @@ const FileList = () => {
     const [code, setCode] = useState('');
     const [downloadId, setDownloadId] = useState(null);
     const [message, setMessage] = useState('');
-    const [FileName,setFileName]=useState([]);
-    console.log('FIleName' ,FileName);
+    const [FileName, setFileName] = useState([]);
+    console.log('FIleName', FileName);
     useEffect(() => {
         const fetchFiles = async () => {
             try {
@@ -24,12 +24,13 @@ const FileList = () => {
         try {
             await fileService.deleteFile(FileName);
             setFiles(files.filter(file => file.FileName !== FileName));
+            window.location.reload();
         } catch (error) {
             setMessage('Error deleting file');
         }
     };
 
-    const setFileNamefn=(FileName)=>{
+    const setFileNamefn = (FileName) => {
         setFileName(FileName)
     }
 
@@ -38,7 +39,7 @@ const FileList = () => {
         console.log('FileName ', FileName);
         try {
             const response = await fileService.downloadFile(FileName, code);
-    
+
             // Create a URL for the file and trigger the download
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
@@ -68,19 +69,29 @@ const FileList = () => {
                     <li key={file._id} className="list-group-item">
                         {file.filename}
                         <button className="btn btn-danger btn-sm float-right" onClick={() => handleDelete(file.filename)}>Delete</button>
-                        <button className="btn btn-primary btn-sm float-right mr-2" onClick={() =>setFileNamefn(file.filename)}>Download</button>
+                        <button className="btn btn-primary btn-sm float-right mr-2" onClick={() => setFileNamefn(file.filename)}>Download</button>
                     </li>
                 ))}
             </ul>
+            <div className='row'>
+                <div className='col-md-6'>
+
+                </div>
+                <div className='col-md-6'>
+
+                </div>
+            </div>
             {FileName && (
                 <form onSubmit={(e) => { e.preventDefault(); handleDownload(downloadId); }}>
                     <div className="form-group">
                         <label htmlFor="code">Enter Download Code</label>
                         <input type="text" className="form-control" name="code" value={code} onChange={(e) => setCode(e.target.value)} required />
                     </div>
-                    <button className="btn btn-primary btn-block" onClick={(e)=>{handleDownload(e)}}>Download</button>
+                    <button className="btn btn-primary btn-block" onClick={(e) => { handleDownload(e) }}>Download</button>
                 </form>
             )}
+
+            <button className='btn btn-primary btn-block' href="/profile">back to profile</button>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import fileService from '../services/fileService';
+// import { Navigate } from 'react-router-dom';
 
 const FileUpload = () => {
     const [file, setFile] = useState(null);
@@ -14,6 +15,7 @@ const FileUpload = () => {
         try {
             const response = await fileService.uploadFile(file);
             setMessage(`File uploaded successfully. Your code is ${response.code}`);
+            // Navigate('/profile')
         } catch (error) {
             setMessage('Error uploading file');
         }
@@ -26,7 +28,7 @@ const FileUpload = () => {
                     <input type="file" className="form-control" onChange={handleFileChange} required />
                 </div>
                 <button className="btn btn-primary btn-block">Upload</button>
-                <a href="/profile">back to profile</a>
+                <a className='btn btn-primary' href="/profile">back to profile</a>
             </form>
             {message && (
                 <div className="form-group">

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import authService from '../services/authService';
 import { useNavigate } from 'react-router-dom';
 const Login = (props) => {
-    const Navigate=useNavigate();
+    const Navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -10,11 +10,11 @@ const Login = (props) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-        const data= await authService.login(username, password);
-        console.log('data',data);
-        Navigate('/profile')
+            const data = await authService.login(username, password);
+            console.log('data', data);
+            Navigate('/profile')
             // props.history.push('/profile');
-            // window.location.reload();
+            window.location.reload();
         } catch (error) {
             const message = error.response && error.response.data && error.response.data.msg
                 ? error.response.data.msg
@@ -22,7 +22,7 @@ const Login = (props) => {
             setMessage(message);
         }
     };
-    
+
 
     return (
         <div className="col-md-12">
